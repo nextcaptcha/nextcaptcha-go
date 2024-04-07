@@ -16,7 +16,7 @@ To start using the NextCaptcha Golang SDK, you first need to obtain your API key
 ```go
 import "github.com/nextcaptcha/nextcaptcha-go"
 
-api := nextcaptcha.NewNextCaptchaAPI("YOUR_CLIENT_KEY")
+api := nextcaptcha.NewNextCaptchaAPI(clientKey, "", "", true)
 
 ```
 Now, you can use the api object to solve various types of captchas.

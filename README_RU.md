@@ -20,7 +20,7 @@ go get github.com/nextcaptcha/nextcaptcha-go
 ```go
 import "github.com/nextcaptcha/nextcaptcha-go"
 
-api := nextcaptcha.NewNextCaptchaAPI("YOUR_CLIENT_KEY")
+api := nextcaptcha.NewNextCaptchaAPI(clientKey, "", "", true)
 
 ```
 

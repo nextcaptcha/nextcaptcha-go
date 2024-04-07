@@ -89,9 +89,9 @@ func (c *ApiClient) send(task map[string]interface{}) (map[string]interface{}, e
 		return nil, err
 	}
 
-	taskId := resp["taskId"].(string)
+	taskId := resp["taskId"].(float64)
 	if c.openLog {
-		log.Printf("Task %s created %v", taskId, resp)
+		log.Printf("Task %f created %v", taskId, resp)
 	}
 
 	startTime := time.Now()
@@ -104,7 +104,7 @@ func (c *ApiClient) send(task map[string]interface{}) (map[string]interface{}, e
 			}, nil
 		}
 
-		data := map[string]string{
+		data := map[string]any{
 			"clientKey": c.clientKey,
 			"taskId":    taskId,
 		}
@@ -122,11 +122,11 @@ func (c *ApiClient) send(task map[string]interface{}) (map[string]interface{}, e
 		}
 
 		if status == READY_STATUS {
-			log.Printf("Task %s ready %v", taskId, resp)
+			log.Printf("Task %f ready %v", taskId, resp)
 			return resp, nil
 		}
 		if status == FAILED_STATUS {
-			log.Printf("Task %s failed %v", taskId, resp)
+			log.Printf("Task %f failed %v", taskId, resp)
 			return resp, nil
 		}
 		time.Sleep(1 * time.Second)
