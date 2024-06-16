@@ -138,12 +138,10 @@ func (c *ApiClient) postJSON(path string, data interface{}) (map[string]interfac
 	if err != nil {
 		return nil, err
 	}
-
 	req, err := http.NewRequest(http.MethodPost, HOST+path, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
-
 	req.Header.Set("Content-Type", "application/json")
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
@@ -181,6 +179,7 @@ type RecaptchaV2Options struct {
 	RecaptchaDataSValue string
 	IsInvisible         bool
 	ApiDomain           string
+	PageAction          string
 }
 
 func (api *NextCaptchaAPI) RecaptchaV2(websiteURL, websiteKey string, options RecaptchaV2Options) (map[string]interface{}, error) {
@@ -198,6 +197,9 @@ func (api *NextCaptchaAPI) RecaptchaV2(websiteURL, websiteKey string, options Re
 	if options.ApiDomain != "" {
 		task["apiDomain"] = options.ApiDomain
 	}
+	if options.PageAction != "" {
+		task["pageAction"] = options.PageAction
+	}
 	return api.api.send(task)
 }
 
@@ -205,6 +207,7 @@ type RecaptchaV2EnterpriseOptions struct {
 	EnterprisePayload map[string]interface{}
 	IsInvisible       bool
 	ApiDomain         string
+	PageAction        string
 }
 
 func (api *NextCaptchaAPI) RecaptchaV2Enterprise(websiteURL, websiteKey string, options RecaptchaV2EnterpriseOptions) (map[string]interface{}, error) {
@@ -221,6 +224,9 @@ func (api *NextCaptchaAPI) RecaptchaV2Enterprise(websiteURL, websiteKey string, 
 	}
 	if options.ApiDomain != "" {
 		task["apiDomain"] = options.ApiDomain
+	}
+	if options.PageAction != "" {
+		task["pageAction"] = options.PageAction
 	}
 	return api.api.send(task)
 }
