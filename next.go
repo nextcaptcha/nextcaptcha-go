@@ -21,7 +21,7 @@ const (
 	RECAPTCHAV2_ENTERPRISE_TYPE = "RecaptchaV2EnterpriseTaskProxyless"
 	RECAPTCHAV3_PROXYLESS_TYPE  = "RecaptchaV3TaskProxyless"
 	RECAPTCHAV3_TYPE            = "RecaptchaV3Task"
-	RECAPTCHA_MOBILE_TYPE       = "RecaptchaMobileProxyless"
+	RECAPTCHA_MOBILE_TYPE       = "RecaptchaMobileTaskProxyless"
 	HCAPTCHA_TYPE               = "HCaptchaTask"
 	HCAPTCHA_PROXYLESS_TYPE     = "HCaptchaTaskProxyless"
 	HCAPTCHA_ENTERPRISE_TYPE    = "HCaptchaEnterpriseTask"
