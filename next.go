@@ -11,22 +11,23 @@ import (
 )
 
 const (
-	HOST                        = "https://api.nextcaptcha.com"
-	TIMEOUT                     = 45 * time.Second
-	PENDING_STATUS              = "pending"
-	PROCESSING_STATUS           = "processing"
-	READY_STATUS                = "ready"
-	FAILED_STATUS               = "failed"
-	RECAPTCHAV2_TYPE            = "RecaptchaV2TaskProxyless"
-	RECAPTCHAV2_ENTERPRISE_TYPE = "RecaptchaV2EnterpriseTaskProxyless"
-	RECAPTCHAV3_PROXYLESS_TYPE  = "RecaptchaV3TaskProxyless"
-	RECAPTCHAV3_TYPE            = "RecaptchaV3Task"
-	RECAPTCHA_MOBILE_TYPE       = "RecaptchaMobileTaskProxyless"
-	HCAPTCHA_TYPE               = "HCaptchaTask"
-	HCAPTCHA_PROXYLESS_TYPE     = "HCaptchaTaskProxyless"
-	HCAPTCHA_ENTERPRISE_TYPE    = "HCaptchaEnterpriseTask"
-	FUNCAPTCHA_TYPE             = "FunCaptchaTask"
-	FUNCAPTCHA_PROXYLESS_TYPE   = "FunCaptchaTaskProxyless"
+	HOST                         = "https://api.nextcaptcha.com"
+	TIMEOUT                      = 45 * time.Second
+	PENDING_STATUS               = "pending"
+	PROCESSING_STATUS            = "processing"
+	READY_STATUS                 = "ready"
+	FAILED_STATUS                = "failed"
+	RECAPTCHAV2_TYPE             = "RecaptchaV2TaskProxyless"
+	RECAPTCHAV2_ENTERPRISE_TYPE  = "RecaptchaV2EnterpriseTaskProxyless"
+	RECAPTCHAV3_PROXYLESS_TYPE   = "RecaptchaV3TaskProxyless"
+	RECAPTCHAV3HS_PROXYLESS_TYPE = "RecaptchaV3HSTaskProxyless"
+	RECAPTCHAV3_TYPE             = "RecaptchaV3Task"
+	RECAPTCHA_MOBILE_TYPE        = "RecaptchaMobileTaskProxyless"
+	HCAPTCHA_TYPE                = "HCaptchaTask"
+	HCAPTCHA_PROXYLESS_TYPE      = "HCaptchaTaskProxyless"
+	HCAPTCHA_ENTERPRISE_TYPE     = "HCaptchaEnterpriseTask"
+	FUNCAPTCHA_TYPE              = "FunCaptchaTask"
+	FUNCAPTCHA_PROXYLESS_TYPE    = "FunCaptchaTaskProxyless"
 )
 
 type TaskBadParametersError struct {
@@ -260,6 +261,22 @@ func (api *NextCaptchaAPI) RecaptchaV3(websiteURL, websiteKey string, options Re
 		task["proxyPort"] = options.ProxyPort
 		task["proxyLogin"] = options.ProxyLogin
 		task["proxyPassword"] = options.ProxyPassword
+	}
+	return api.api.send(task)
+}
+
+func (api *NextCaptchaAPI) RecaptchaV3HS(websiteURL, websiteKey string,
+	options RecaptchaV3Options) (map[string]interface{}, error) {
+	task := map[string]interface{}{
+		"type":       RECAPTCHAV3HS_PROXYLESS_TYPE,
+		"websiteURL": websiteURL,
+		"websiteKey": websiteKey,
+	}
+	if options.PageAction != "" {
+		task["pageAction"] = options.PageAction
+	}
+	if options.ApiDomain != "" {
+		task["apiDomain"] = options.ApiDomain
 	}
 	return api.api.send(task)
 }
